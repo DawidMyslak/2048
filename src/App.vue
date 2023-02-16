@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <GameContainer />
-  </div>
+  <GameContainer />
 </template>
 
 <script setup>

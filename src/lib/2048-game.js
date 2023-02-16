@@ -27,21 +27,21 @@ export default function create2048Game() {
     state.grid = grid;
   }
 
-  function insertRandomlyNewCell() {
-    const cell = {
+  function insertRandomlyNewTile() {
+    const tile = {
       id: id++,
       value: 1,
     };
 
-    state.grid[0][0] = cell;
+    state.grid[0][0] = tile;
   }
 
-  function moveAndMergeCellsInRow({ rowIndex, direction }) {
+  function moveAndMergeTilesInRow({ rowIndex, direction }) {
     let emptyIndex = null;
     let numberIndex = null;
     let lastMergedNumberIndex = 0;
 
-    const getCell = (i) => {
+    const getTile = (i) => {
       switch (direction) {
         case DIRECTION.LEFT:
           return state.grid[rowIndex][i];
@@ -54,26 +54,26 @@ export default function create2048Game() {
       }
     };
 
-    const setCell = (i, cell) => {
+    const setTile = (i, tile) => {
       switch (direction) {
         case DIRECTION.LEFT:
-          state.grid[rowIndex][i] = cell;
+          state.grid[rowIndex][i] = tile;
           break;
         case DIRECTION.RIGHT:
-          state.grid[rowIndex][state.grid.length - 1 - i] = cell;
+          state.grid[rowIndex][state.grid.length - 1 - i] = tile;
           break;
         case DIRECTION.UP:
-          state.grid[i][rowIndex] = cell;
+          state.grid[i][rowIndex] = tile;
           break;
         case DIRECTION.DOWN:
-          state.grid[state.grid.length - 1 - i][rowIndex] = cell;
+          state.grid[state.grid.length - 1 - i][rowIndex] = tile;
           break;
       }
     };
 
     for (let i = 0; i < state.grid.length; i++) {
-      if (getCell(i) === null) {
-        // found an empty cell
+      if (getTile(i) === null) {
+        // found an empty tile
         if (emptyIndex === null) {
           emptyIndex = i;
         }
@@ -82,23 +82,23 @@ export default function create2048Game() {
         numberIndex = i;
 
         if (emptyIndex !== null) {
-          // move number to the empty cell
-          setCell(emptyIndex, getCell(numberIndex));
-          setCell(numberIndex, null);
+          // move number to the empty tile
+          setTile(emptyIndex, getTile(numberIndex));
+          setTile(numberIndex, null);
           numberIndex = emptyIndex;
           emptyIndex++;
         }
 
         if (
-          getCell(numberIndex - 1)?.value === getCell(numberIndex).value &&
+          getTile(numberIndex - 1)?.value === getTile(numberIndex).value &&
           numberIndex > lastMergedNumberIndex
         ) {
           // neighbour numbers the same, merge them
-          const mergedCell = getCell(numberIndex);
-          mergedCell.value *= 2;
+          const mergedTile = getTile(numberIndex);
+          mergedTile.value *= 2;
 
-          setCell(numberIndex - 1, mergedCell);
-          setCell(numberIndex, null);
+          setTile(numberIndex - 1, mergedTile);
+          setTile(numberIndex, null);
           emptyIndex = numberIndex;
           lastMergedNumberIndex = numberIndex;
         }
@@ -106,9 +106,9 @@ export default function create2048Game() {
     }
   }
 
-  function moveAndMergeCells({ direction }) {
+  function moveAndMergeTiles({ direction }) {
     for (let i = 0; i < state.grid.length; i++) {
-      moveAndMergeCellsInRow({ rowIndex: i, direction });
+      moveAndMergeTilesInRow({ rowIndex: i, direction });
     }
   }
 
@@ -117,7 +117,7 @@ export default function create2048Game() {
     state,
     init,
     loadGrid,
-    insertRandomlyNewCell,
-    moveAndMergeCells,
+    insertRandomlyNewTile,
+    moveAndMergeTiles,
   };
 }

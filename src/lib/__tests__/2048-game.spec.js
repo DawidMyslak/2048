@@ -19,9 +19,9 @@ describe("2048-game", () => {
     });
   });
 
-  describe("moveAndMergeCells", () => {
-    it("should move cells right and merge the same values", () => {
-      const { DIRECTION, state, loadGrid, moveAndMergeCells } =
+  describe("moveAndMergeTiles", () => {
+    it("should move tiles right and merge the same values", () => {
+      const { DIRECTION, state, loadGrid, moveAndMergeTiles } =
         create2048Game();
 
       loadGrid([
@@ -31,7 +31,7 @@ describe("2048-game", () => {
         [{ value: 16 }, { value: 16 }, null, { value: 16 }],
       ]);
 
-      moveAndMergeCells({ direction: DIRECTION.RIGHT });
+      moveAndMergeTiles({ direction: DIRECTION.RIGHT });
 
       expect(state.grid).toMatchObject([
         [null, null, { value: 4 }, { value: 4 }],
@@ -41,8 +41,8 @@ describe("2048-game", () => {
       ]);
     });
 
-    it("should move cells left and merge the same values", () => {
-      const { DIRECTION, state, loadGrid, moveAndMergeCells } =
+    it("should move tiles left and merge the same values", () => {
+      const { DIRECTION, state, loadGrid, moveAndMergeTiles } =
         create2048Game();
 
       loadGrid([
@@ -52,7 +52,7 @@ describe("2048-game", () => {
         [{ value: 16 }, { value: 16 }, null, { value: 16 }],
       ]);
 
-      moveAndMergeCells({ direction: DIRECTION.LEFT });
+      moveAndMergeTiles({ direction: DIRECTION.LEFT });
 
       expect(state.grid).toMatchObject([
         [{ value: 4 }, { value: 4 }, null, null],
@@ -62,8 +62,8 @@ describe("2048-game", () => {
       ]);
     });
 
-    it("should move cells up and merge the same values", () => {
-      const { DIRECTION, state, loadGrid, moveAndMergeCells } =
+    it("should move tiles up and merge the same values", () => {
+      const { DIRECTION, state, loadGrid, moveAndMergeTiles } =
         create2048Game();
 
       loadGrid([
@@ -73,7 +73,7 @@ describe("2048-game", () => {
         [{ value: 16 }, { value: 16 }, { value: 4 }, { value: 16 }],
       ]);
 
-      moveAndMergeCells({ direction: DIRECTION.UP });
+      moveAndMergeTiles({ direction: DIRECTION.UP });
 
       expect(state.grid).toMatchObject([
         [{ value: 4 }, { value: 4 }, { value: 2 }, { value: 2 }],
@@ -83,8 +83,8 @@ describe("2048-game", () => {
       ]);
     });
 
-    it("should move cells down and merge the same values", () => {
-      const { DIRECTION, state, loadGrid, moveAndMergeCells } =
+    it("should move tiles down and merge the same values", () => {
+      const { DIRECTION, state, loadGrid, moveAndMergeTiles } =
         create2048Game();
 
       loadGrid([
@@ -94,7 +94,7 @@ describe("2048-game", () => {
         [{ value: 16 }, { value: 16 }, { value: 4 }, { value: 16 }],
       ]);
 
-      moveAndMergeCells({ direction: DIRECTION.DOWN });
+      moveAndMergeTiles({ direction: DIRECTION.DOWN });
 
       expect(state.grid).toMatchObject([
         [null, null, null, null],
