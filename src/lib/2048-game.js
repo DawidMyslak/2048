@@ -7,7 +7,7 @@ const DIRECTION = {
   RIGHT: "right",
 };
 
-export default function create2048Game() {
+export default function use2048GameEngine() {
   let state = reactive({
     score: 0,
     grid: null,
