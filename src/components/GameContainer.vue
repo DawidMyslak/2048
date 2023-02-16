@@ -39,7 +39,7 @@
 import { computed, onBeforeMount, onBeforeUnmount } from "vue";
 import create2048Game from "../lib/2048-game";
 
-const { DIRECTION, state, loadGrid, moveAndMergeTiles } = create2048Game();
+const { DIRECTION, state, loadGrid, slideAndMergeTiles } = create2048Game();
 const GRID_SIZE = 4; // 4 x 4 tiles
 const TILE_SIZE = 80; // px
 const TILE_SPACING = 4; // px
@@ -86,16 +86,16 @@ const tiles = computed(() => {
 const onKeydownHandler = function (e) {
   switch (e.code) {
     case "ArrowRight":
-      moveAndMergeTiles({ direction: DIRECTION.RIGHT });
+      slideAndMergeTiles({ direction: DIRECTION.RIGHT });
       break;
     case "ArrowLeft":
-      moveAndMergeTiles({ direction: DIRECTION.LEFT });
+      slideAndMergeTiles({ direction: DIRECTION.LEFT });
       break;
     case "ArrowUp":
-      moveAndMergeTiles({ direction: DIRECTION.UP });
+      slideAndMergeTiles({ direction: DIRECTION.UP });
       break;
     case "ArrowDown":
-      moveAndMergeTiles({ direction: DIRECTION.DOWN });
+      slideAndMergeTiles({ direction: DIRECTION.DOWN });
       break;
   }
 };

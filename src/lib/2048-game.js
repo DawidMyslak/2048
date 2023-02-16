@@ -36,7 +36,7 @@ export default function create2048Game() {
     state.grid[0][0] = tile;
   }
 
-  function moveAndMergeTilesInRow({ rowIndex, direction }) {
+  function slideAndMergeTilesInRow({ rowIndex, direction }) {
     let emptyIndex = null;
     let numberIndex = null;
     let lastMergedNumberIndex = 0;
@@ -106,9 +106,9 @@ export default function create2048Game() {
     }
   }
 
-  function moveAndMergeTiles({ direction }) {
+  function slideAndMergeTiles({ direction }) {
     for (let i = 0; i < state.grid.length; i++) {
-      moveAndMergeTilesInRow({ rowIndex: i, direction });
+      slideAndMergeTilesInRow({ rowIndex: i, direction });
     }
   }
 
@@ -118,6 +118,6 @@ export default function create2048Game() {
     init,
     loadGrid,
     insertRandomlyNewTile,
-    moveAndMergeTiles,
+    slideAndMergeTiles,
   };
 }
