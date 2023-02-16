@@ -2,7 +2,7 @@ import { describe, it, expect } from "vitest";
 
 import create2048Game from "../2048-game";
 
-describe("game-engine", () => {
+describe("2048-game", () => {
   describe("init", () => {
     it("should initialise the state", () => {
       const { state, init } = create2048Game();

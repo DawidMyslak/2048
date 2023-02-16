@@ -1,9 +1,9 @@
-<script setup>
-import HelloWorld from "./components/HelloWorld.vue";
-</script>
-
 <template>
   <div>
-    <HelloWorld msg="Hey!" />
+    <GameContainer />
   </div>
 </template>
+
+<script setup>
+import GameContainer from "./components/GameContainer.vue";
+</script>
