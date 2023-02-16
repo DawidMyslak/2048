@@ -1,5 +1,6 @@
 <template>
   <div class="game-container">
+    <div class="score">SCORE: {{ state.score }}</div>
     <div
       class="grid"
       :style="{
@@ -123,6 +124,13 @@ onBeforeUnmount(() => {
   background-color: #f1f1f1;
   user-select: none;
   padding: 12px;
+}
+
+.score {
+  font-weight: bold;
+  color: #000;
+  font-size: 32px;
+  padding: 0 8px 8px;
 }
 
 .grid {

@@ -107,6 +107,7 @@ export default function create2048Game() {
           // neighbour numbers the same, merge them
           const mergedTile = getTile(numberIndex);
           mergedTile.value *= 2;
+          state.score += mergedTile.value;
 
           setTile(numberIndex - 1, mergedTile);
           setTile(numberIndex, null);
