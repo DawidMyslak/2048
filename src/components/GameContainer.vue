@@ -60,7 +60,7 @@ const tiles = computed(() => {
   const result = [];
 
   // extract non-empty tiles from the grid
-  // and fletten it to an array
+  // and fletten them to an array
   for (let i = 0; i < state.grid.length; i++) {
     for (let j = 0; j < state.grid.length; j++) {
       if (state.grid[i][j]) {
@@ -140,6 +140,7 @@ onBeforeUnmount(() => {
   color: #fff;
   text-shadow: 1px 1px 0 rgba(26, 67, 114, 0.5);
   font-size: 32px;
+  animation: tile-animation 0.2s ease-in;
 }
 
 .tile--value-2 {
@@ -172,5 +173,20 @@ onBeforeUnmount(() => {
 
 .tile--value-256 {
   background-color: #000;
+}
+
+@keyframes tile-animation {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 </style>
