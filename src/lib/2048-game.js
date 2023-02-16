@@ -8,14 +8,12 @@ const DIRECTION = {
 };
 
 export default function create2048Game() {
-  let id = 0;
-
   let state = reactive({
     score: 0,
     grid: null,
   });
 
-  function init({ gridSize }) {
+  function initNewGame({ gridSize }) {
     state.score = 0;
 
     state.grid = Array(gridSize)
@@ -27,13 +25,26 @@ export default function create2048Game() {
     state.grid = grid;
   }
 
-  function insertRandomlyNewTile() {
-    const tile = {
-      id: id++,
-      value: 1,
+  function insertRandomlyNewTile(customProps) {
+    const emptyTiles = [];
+
+    for (let i = 0; i < state.grid.length; i++) {
+      for (let j = 0; j < state.grid.length; j++) {
+        if (state.grid[i][j] === null) {
+          emptyTiles.push({ i, j });
+        }
+      }
+    }
+
+    if (emptyTiles.length === 0) return false;
+
+    const { i, j } = emptyTiles[Math.floor(Math.random() * emptyTiles.length)];
+    state.grid[i][j] = {
+      ...customProps,
+      value: 2,
     };
 
-    state.grid[0][0] = tile;
+    return true;
   }
 
   function slideAndMergeTilesInRow({ rowIndex, direction }) {
@@ -115,7 +126,7 @@ export default function create2048Game() {
   return {
     DIRECTION,
     state,
-    init,
+    initNewGame,
     loadGrid,
     insertRandomlyNewTile,
     slideAndMergeTiles,

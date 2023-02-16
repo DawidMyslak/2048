@@ -39,22 +39,21 @@
 import { computed, onBeforeMount, onBeforeUnmount } from "vue";
 import create2048Game from "../lib/2048-game";
 
-const { DIRECTION, state, loadGrid, slideAndMergeTiles } = create2048Game();
-const GRID_SIZE = 4; // 4 x 4 tiles
+const {
+  DIRECTION,
+  state,
+  initNewGame,
+  insertRandomlyNewTile,
+  slideAndMergeTiles,
+} = create2048Game();
+
+const GRID_SIZE = 5; // 6 x 6 tiles
 const TILE_SIZE = 80; // px
 const TILE_SPACING = 4; // px
+let tileId = 0;
 
-loadGrid([
-  [
-    { id: 1, value: 2 },
-    { id: 2, value: 2 },
-    { id: 3, value: 2 },
-    { id: 4, value: 2 },
-  ],
-  [{ id: 5, value: 2 }, { id: 6, value: 2 }, null, { id: 7, value: 2 }],
-  [{ id: 8, value: 4 }, { id: 9, value: 4 }, null, null],
-  [{ id: 10, value: 8 }, { id: 11, value: 8 }, null, { id: 12, value: 8 }],
-]);
+initNewGame({ gridSize: GRID_SIZE });
+insertRandomlyNewTile({ id: ++tileId });
 
 const tiles = computed(() => {
   const result = [];
@@ -73,7 +72,7 @@ const tiles = computed(() => {
     }
   }
 
-  // keeping the same tiles order is important as Vue can use the "key"
+  // keeping the same tiles order is important as Vue can use the :key="tile.id"
   // to track each tile component and not recreate them every singe time
   // when re-rendering the list, in this way CSS transitions are also possible
   result.sort((a, b) => {
@@ -83,29 +82,38 @@ const tiles = computed(() => {
   return result;
 });
 
-const onKeydownHandler = function (e) {
-  switch (e.code) {
-    case "ArrowRight":
-      slideAndMergeTiles({ direction: DIRECTION.RIGHT });
-      break;
-    case "ArrowLeft":
-      slideAndMergeTiles({ direction: DIRECTION.LEFT });
-      break;
-    case "ArrowUp":
-      slideAndMergeTiles({ direction: DIRECTION.UP });
-      break;
-    case "ArrowDown":
-      slideAndMergeTiles({ direction: DIRECTION.DOWN });
-      break;
+let isReadyForUserInput = true;
+const KEY_CODE_TO_DIRECTION = {
+  ArrowRight: DIRECTION.RIGHT,
+  ArrowLeft: DIRECTION.LEFT,
+  ArrowUp: DIRECTION.UP,
+  ArrowDown: DIRECTION.DOWN,
+};
+
+const onKeyDownHandler = function (e) {
+  if (!isReadyForUserInput) return;
+
+  if (Object.keys(KEY_CODE_TO_DIRECTION).includes(e.code)) {
+    isReadyForUserInput = false;
+    slideAndMergeTiles({ direction: KEY_CODE_TO_DIRECTION[e.code] });
+    insertRandomlyNewTile({ id: ++tileId });
+  }
+};
+
+const onKeyUpHandler = function (e) {
+  if (Object.keys(KEY_CODE_TO_DIRECTION).includes(e.code)) {
+    isReadyForUserInput = true;
   }
 };
 
 onBeforeMount(() => {
-  window.addEventListener("keydown", onKeydownHandler, null);
+  window.addEventListener("keydown", onKeyDownHandler);
+  window.addEventListener("keyup", onKeyUpHandler);
 });
 
 onBeforeUnmount(() => {
-  window.removeEventListener("keydown", onKeydownHandler);
+  window.removeEventListener("keydown", onKeyDownHandler);
+  window.removeEventListener("keyup", onKeyUpHandler);
 });
 </script>
 

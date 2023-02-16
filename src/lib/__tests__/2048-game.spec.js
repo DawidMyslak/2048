@@ -3,11 +3,11 @@ import { describe, it, expect } from "vitest";
 import create2048Game from "../2048-game";
 
 describe("2048-game", () => {
-  describe("init", () => {
-    it("should initialise the state", () => {
-      const { state, init } = create2048Game();
+  describe("initNewGame", () => {
+    it("should initialise the game", () => {
+      const { state, initNewGame } = create2048Game();
 
-      init({ gridSize: 4 });
+      initNewGame({ gridSize: 4 });
 
       expect(state.score).toEqual(0);
       expect(state.grid).toMatchObject([
@@ -15,6 +15,44 @@ describe("2048-game", () => {
         [null, null, null, null],
         [null, null, null, null],
         [null, null, null, null],
+      ]);
+    });
+  });
+
+  describe("insertRandomlyNewTile", () => {
+    it("should insert randomly a new tile and return true", () => {
+      const { initNewGame, insertRandomlyNewTile } = create2048Game();
+
+      initNewGame({ gridSize: 4 });
+      const hasSucceeded = insertRandomlyNewTile();
+
+      expect(hasSucceeded).toEqual(true);
+    });
+
+    it("should not insert a new tile when there is no space and return false", () => {
+      const { loadGrid, insertRandomlyNewTile } = create2048Game();
+
+      loadGrid([
+        [{ value: 2 }, { value: 4 }],
+        [{ value: 8 }, { value: 16 }],
+      ]);
+      const hasSucceeded = insertRandomlyNewTile();
+
+      expect(hasSucceeded).toEqual(false);
+    });
+
+    it("should insert a new tile into the last empty space", () => {
+      const { state, loadGrid, insertRandomlyNewTile } = create2048Game();
+
+      loadGrid([
+        [{ value: 2 }, { value: 4 }],
+        [{ value: 8 }, null],
+      ]);
+      insertRandomlyNewTile();
+
+      expect(state.grid).toMatchObject([
+        [{ value: 2 }, { value: 4 }],
+        [{ value: 8 }, { value: 2 }],
       ]);
     });
   });
