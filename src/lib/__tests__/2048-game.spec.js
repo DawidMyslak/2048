@@ -25,19 +25,19 @@ describe("2048-game", () => {
         create2048Game();
 
       loadGrid([
-        [{ value: 1 }, { value: 1 }, { value: 1 }, { value: 1 }],
-        [{ value: 1 }, { value: 1 }, null, { value: 2 }],
-        [{ value: 4 }, { value: 4 }, null, null],
-        [{ value: 8 }, { value: 8 }, null, { value: 8 }],
+        [{ value: 2 }, { value: 2 }, { value: 2 }, { value: 2 }],
+        [{ value: 2 }, { value: 2 }, null, { value: 4 }],
+        [{ value: 8 }, { value: 8 }, null, null],
+        [{ value: 16 }, { value: 16 }, null, { value: 16 }],
       ]);
 
       moveAndMergeCells({ direction: DIRECTION.RIGHT });
 
       expect(state.grid).toMatchObject([
-        [null, null, { value: 2 }, { value: 2 }],
-        [null, null, { value: 2 }, { value: 2 }],
-        [null, null, null, { value: 8 }],
-        [null, null, { value: 8 }, { value: 16 }],
+        [null, null, { value: 4 }, { value: 4 }],
+        [null, null, { value: 4 }, { value: 4 }],
+        [null, null, null, { value: 16 }],
+        [null, null, { value: 16 }, { value: 32 }],
       ]);
     });
 
@@ -46,19 +46,19 @@ describe("2048-game", () => {
         create2048Game();
 
       loadGrid([
-        [{ value: 1 }, { value: 1 }, { value: 1 }, { value: 1 }],
-        [{ value: 1 }, { value: 1 }, null, { value: 2 }],
-        [{ value: 4 }, { value: 4 }, null, null],
-        [{ value: 8 }, { value: 8 }, null, { value: 8 }],
+        [{ value: 2 }, { value: 2 }, { value: 2 }, { value: 2 }],
+        [{ value: 2 }, { value: 2 }, null, { value: 4 }],
+        [{ value: 8 }, { value: 8 }, null, null],
+        [{ value: 16 }, { value: 16 }, null, { value: 16 }],
       ]);
 
       moveAndMergeCells({ direction: DIRECTION.LEFT });
 
       expect(state.grid).toMatchObject([
-        [{ value: 2 }, { value: 2 }, null, null],
-        [{ value: 2 }, { value: 2 }, null, null],
-        [{ value: 8 }, null, null, null],
-        [{ value: 16 }, { value: 8 }, null, null],
+        [{ value: 4 }, { value: 4 }, null, null],
+        [{ value: 4 }, { value: 4 }, null, null],
+        [{ value: 16 }, null, null, null],
+        [{ value: 32 }, { value: 16 }, null, null],
       ]);
     });
 
@@ -67,18 +67,18 @@ describe("2048-game", () => {
         create2048Game();
 
       loadGrid([
-        [{ value: 1 }, { value: 1 }, { value: 1 }, { value: 1 }],
-        [{ value: 1 }, { value: 1 }, null, { value: 2 }],
-        [{ value: 8 }, { value: 2 }, null, null],
-        [{ value: 8 }, { value: 8 }, { value: 2 }, { value: 8 }],
+        [{ value: 2 }, { value: 2 }, { value: 2 }, { value: 2 }],
+        [{ value: 2 }, { value: 2 }, null, { value: 4 }],
+        [{ value: 16 }, { value: 4 }, null, null],
+        [{ value: 16 }, { value: 16 }, { value: 4 }, { value: 16 }],
       ]);
 
       moveAndMergeCells({ direction: DIRECTION.UP });
 
       expect(state.grid).toMatchObject([
-        [{ value: 2 }, { value: 2 }, { value: 1 }, { value: 1 }],
-        [{ value: 16 }, { value: 2 }, { value: 2 }, { value: 2 }],
-        [null, { value: 8 }, null, { value: 8 }],
+        [{ value: 4 }, { value: 4 }, { value: 2 }, { value: 2 }],
+        [{ value: 32 }, { value: 4 }, { value: 4 }, { value: 4 }],
+        [null, { value: 16 }, null, { value: 16 }],
         [null, null, null, null],
       ]);
     });
@@ -88,19 +88,19 @@ describe("2048-game", () => {
         create2048Game();
 
       loadGrid([
-        [{ value: 1 }, { value: 1 }, { value: 1 }, { value: 1 }],
-        [{ value: 1 }, { value: 1 }, null, { value: 2 }],
-        [{ value: 8 }, { value: 2 }, null, null],
-        [{ value: 8 }, { value: 8 }, { value: 2 }, { value: 8 }],
+        [{ value: 2 }, { value: 2 }, { value: 2 }, { value: 2 }],
+        [{ value: 2 }, { value: 2 }, null, { value: 4 }],
+        [{ value: 16 }, { value: 4 }, null, null],
+        [{ value: 16 }, { value: 16 }, { value: 4 }, { value: 16 }],
       ]);
 
       moveAndMergeCells({ direction: DIRECTION.DOWN });
 
       expect(state.grid).toMatchObject([
         [null, null, null, null],
-        [null, { value: 2 }, null, { value: 1 }],
-        [{ value: 2 }, { value: 2 }, { value: 1 }, { value: 2 }],
-        [{ value: 16 }, { value: 8 }, { value: 2 }, { value: 8 }],
+        [null, { value: 4 }, null, { value: 2 }],
+        [{ value: 4 }, { value: 4 }, { value: 2 }, { value: 4 }],
+        [{ value: 32 }, { value: 16 }, { value: 4 }, { value: 16 }],
       ]);
     });
   });

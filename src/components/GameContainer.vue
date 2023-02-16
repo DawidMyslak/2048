@@ -14,6 +14,7 @@
         :style="{
           width: CELL_SIZE + 'px',
           height: CELL_SIZE + 'px',
+          margin: CELL_SPACING + 'px',
         }"
       ></div>
       <div
@@ -120,7 +121,6 @@ onBeforeUnmount(() => {
 }
 
 .cell--bg {
-  margin: 4px;
   background-color: #e9e9e9;
   display: block;
   float: left;
