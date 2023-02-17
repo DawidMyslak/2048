@@ -1,13 +1,23 @@
 <template>
   <div class="game-container">
     <div class="score">SCORE: {{ state.score }}</div>
-    <GameGrid />
+    <div>
+      GRID:
+      <select v-model="config.gridSize">
+        <option value="4">4x4</option>
+        <option value="5">5x5</option>
+        <option value="6">6x6</option>
+        <option value="7">7x7</option>
+        <option value="8">8x8</option>
+      </select>
+    </div>
+    <GameGrid :grid-size="config.gridSize" />
   </div>
 </template>
 
 <script setup>
-import { provide, onBeforeMount, onBeforeUnmount } from "vue";
-import { GRID_SIZE } from "./../constants";
+import { provide, onBeforeMount, onBeforeUnmount, reactive, watch } from "vue";
+import { DEFAULT_GRID_SIZE } from "./../constants";
 import createGameEngine from "../lib/2048-game";
 import GameGrid from "./GameGrid.vue";
 
@@ -22,10 +32,22 @@ const {
   slideAndMergeTiles,
 } = gameEngine;
 
-let tileId = 0;
+let tileId;
+const config = reactive({
+  gridSize: DEFAULT_GRID_SIZE,
+  numberOfObstacles: 4,
+});
 
-initNewGame({ gridSize: GRID_SIZE });
-insertRandomlyNewTile({ id: ++tileId });
+function start() {
+  tileId = 0;
+  initNewGame({ gridSize: Number(config.gridSize) });
+  insertRandomlyNewTile({ id: ++tileId });
+}
+start();
+
+watch(config, () => {
+  start();
+});
 
 const KEY_CODE_TO_DIRECTION = {
   ArrowRight: DIRECTION.RIGHT,
