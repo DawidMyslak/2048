@@ -1,7 +1,7 @@
 <template>
   <div class="game-grid">
     <div
-      class="box"
+      class="container"
       :style="{
         width: state.grid.length * (TILE_SIZE + 2 * TILE_SPACING) + 'px',
         height: state.grid.length * (TILE_SIZE + 2 * TILE_SPACING) + 'px',
@@ -51,7 +51,7 @@ const tiles = computed(() => {
   padding: 12px;
 }
 
-.box {
+.container {
   position: relative;
 }
 </style>
