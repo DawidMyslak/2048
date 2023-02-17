@@ -9,7 +9,7 @@
       height: TILE_SIZE + 'px',
     }"
   >
-    {{ tile.value !== "x" ? tile.value : "" }}
+    {{ tile.type === "number" ? tile.value : "" }}
   </div>
 </template>
 
