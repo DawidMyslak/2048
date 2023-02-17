@@ -38,7 +38,7 @@
 
 <script setup>
 import { computed, onBeforeMount, onBeforeUnmount } from "vue";
-import use2048GameEngine from "../lib/2048-game";
+import createGameEngine from "../lib/2048-game";
 
 const {
   DIRECTION,
@@ -46,7 +46,7 @@ const {
   initNewGame,
   insertRandomlyNewTile,
   slideAndMergeTiles,
-} = use2048GameEngine();
+} = createGameEngine();
 
 const GRID_SIZE = 5; // 6 x 6 tiles
 const TILE_SIZE = 80; // px

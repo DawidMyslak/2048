@@ -1,11 +1,11 @@
 import { describe, it, expect } from "vitest";
 
-import use2048GameEngine from "../2048-game";
+import createGameEngine from "../2048-game";
 
 describe("2048-game", () => {
   describe("initNewGame", () => {
     it("should initialise the game", () => {
-      const { state, initNewGame } = use2048GameEngine();
+      const { state, initNewGame } = createGameEngine();
 
       initNewGame({ gridSize: 4 });
 
@@ -21,7 +21,7 @@ describe("2048-game", () => {
 
   describe("insertRandomlyNewTile", () => {
     it("should insert randomly a new tile and return true", () => {
-      const { initNewGame, insertRandomlyNewTile } = use2048GameEngine();
+      const { initNewGame, insertRandomlyNewTile } = createGameEngine();
 
       initNewGame({ gridSize: 4 });
       const hasSucceeded = insertRandomlyNewTile();
@@ -30,7 +30,7 @@ describe("2048-game", () => {
     });
 
     it("should not insert a new tile when there is no space and return false", () => {
-      const { loadGrid, insertRandomlyNewTile } = use2048GameEngine();
+      const { loadGrid, insertRandomlyNewTile } = createGameEngine();
 
       loadGrid([
         [{ value: 2 }, { value: 4 }],
@@ -42,7 +42,7 @@ describe("2048-game", () => {
     });
 
     it("should insert a new tile into the last empty space", () => {
-      const { state, loadGrid, insertRandomlyNewTile } = use2048GameEngine();
+      const { state, loadGrid, insertRandomlyNewTile } = createGameEngine();
 
       loadGrid([
         [{ value: 2 }, { value: 4 }],
@@ -60,7 +60,7 @@ describe("2048-game", () => {
   describe("slideAndMergeTiles", () => {
     it("should slide tiles right and merge the same values", () => {
       const { DIRECTION, state, loadGrid, slideAndMergeTiles } =
-        use2048GameEngine();
+        createGameEngine();
 
       loadGrid([
         [{ value: 2 }, { value: 2 }, { value: 2 }, { value: 2 }],
@@ -81,7 +81,7 @@ describe("2048-game", () => {
 
     it("should slide tiles left and merge the same values", () => {
       const { DIRECTION, state, loadGrid, slideAndMergeTiles } =
-        use2048GameEngine();
+        createGameEngine();
 
       loadGrid([
         [{ value: 2 }, { value: 2 }, { value: 2 }, { value: 2 }],
@@ -102,7 +102,7 @@ describe("2048-game", () => {
 
     it("should slide tiles up and merge the same values", () => {
       const { DIRECTION, state, loadGrid, slideAndMergeTiles } =
-        use2048GameEngine();
+        createGameEngine();
 
       loadGrid([
         [{ value: 2 }, { value: 2 }, { value: 2 }, { value: 2 }],
@@ -123,7 +123,7 @@ describe("2048-game", () => {
 
     it("should slide tiles down and merge the same values", () => {
       const { DIRECTION, state, loadGrid, slideAndMergeTiles } =
-        use2048GameEngine();
+        createGameEngine();
 
       loadGrid([
         [{ value: 2 }, { value: 2 }, { value: 2 }, { value: 2 }],
