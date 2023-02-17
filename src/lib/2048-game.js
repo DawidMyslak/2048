@@ -41,7 +41,7 @@ export default function createGameEngine() {
     return result;
   }
 
-  function insertRandomlyNewTile(customProps) {
+  function insertRandomlyNewTile(tile) {
     const emptyPositions = findEmptyPositionsInGrid();
     if (emptyPositions.length === 0) return false;
 
@@ -49,10 +49,7 @@ export default function createGameEngine() {
     const { i, j } =
       emptyPositions[Math.floor(Math.random() * emptyPositions.length)];
 
-    state.grid[i][j] = {
-      ...customProps,
-      value: 2,
-    };
+    state.grid[i][j] = tile;
 
     return true;
   }
@@ -98,6 +95,9 @@ export default function createGameEngine() {
         if (emptyIndex === null) {
           emptyIndex = i;
         }
+      } else if (getTile(i).value === "x") {
+        // found an obstacle
+        emptyIndex = null;
       } else {
         // found a number
         numberIndex = i;

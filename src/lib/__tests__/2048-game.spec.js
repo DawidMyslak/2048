@@ -24,7 +24,7 @@ describe("2048-game", () => {
       const { initNewGame, insertRandomlyNewTile } = createGameEngine();
 
       initNewGame({ gridSize: 4 });
-      const hasSucceeded = insertRandomlyNewTile();
+      const hasSucceeded = insertRandomlyNewTile({ value: 2 });
 
       expect(hasSucceeded).toEqual(true);
     });
@@ -36,7 +36,7 @@ describe("2048-game", () => {
         [{ value: 2 }, { value: 4 }],
         [{ value: 8 }, { value: 16 }],
       ]);
-      const hasSucceeded = insertRandomlyNewTile();
+      const hasSucceeded = insertRandomlyNewTile({ value: 2 });
 
       expect(hasSucceeded).toEqual(false);
     });
@@ -48,7 +48,7 @@ describe("2048-game", () => {
         [{ value: 2 }, { value: 4 }],
         [{ value: 8 }, null],
       ]);
-      insertRandomlyNewTile();
+      insertRandomlyNewTile({ value: 2 });
 
       expect(state.grid).toMatchObject([
         [{ value: 2 }, { value: 4 }],

@@ -9,7 +9,7 @@
       height: TILE_SIZE + 'px',
     }"
   >
-    {{ tile.value }}
+    {{ tile.value !== "x" ? tile.value : "" }}
   </div>
 </template>
 
@@ -39,6 +39,12 @@ defineProps({
   font-size: 32px;
   animation: tile-animation 0.2s ease-in;
   background-color: #000;
+}
+
+.value-x {
+  background-color: #444;
+  border: 4px solid #333;
+  animation: none;
 }
 
 .value-2 {

@@ -1,11 +1,10 @@
 <template>
   <div class="game-grid">
     <div
-      :key="gridSize"
       class="box"
       :style="{
-        width: gridSize * (TILE_SIZE + 2 * TILE_SPACING) + 'px',
-        height: gridSize * (TILE_SIZE + 2 * TILE_SPACING) + 'px',
+        width: state.grid.length * (TILE_SIZE + 2 * TILE_SPACING) + 'px',
+        height: state.grid.length * (TILE_SIZE + 2 * TILE_SPACING) + 'px',
       }"
     >
       <GameTileEmpty
@@ -22,13 +21,6 @@ import { inject, computed } from "vue";
 import { TILE_SIZE, TILE_SPACING } from "./../constants";
 import GameTile from "./GameTile.vue";
 import GameTileEmpty from "./GameTileEmpty.vue";
-
-defineProps({
-  gridSize: {
-    type: Number,
-    required: true,
-  },
-});
 
 const gameEngine = inject("gameEngine");
 const { state, getTiles } = gameEngine;

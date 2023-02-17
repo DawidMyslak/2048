@@ -11,13 +11,23 @@
         <option value="8">8x8</option>
       </select>
     </div>
-    <GameGrid :grid-size="config.gridSize" />
+    <div>
+      OBSTACLES:
+      <select v-model="config.numberOfObstacles">
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+      </select>
+    </div>
+    <GameGrid />
   </div>
 </template>
 
 <script setup>
 import { provide, onBeforeMount, onBeforeUnmount, reactive, watch } from "vue";
-import { DEFAULT_GRID_SIZE } from "./../constants";
+import { DEFAULT_GRID_SIZE, DEFAULT_NUMBER_OF_OBSTACLES } from "./../constants";
 import createGameEngine from "../lib/2048-game";
 import GameGrid from "./GameGrid.vue";
 
@@ -35,13 +45,18 @@ const {
 let tileId;
 const config = reactive({
   gridSize: DEFAULT_GRID_SIZE,
-  numberOfObstacles: 4,
+  numberOfObstacles: DEFAULT_NUMBER_OF_OBSTACLES,
 });
 
 function start() {
   tileId = 0;
+
   initNewGame({ gridSize: Number(config.gridSize) });
-  insertRandomlyNewTile({ id: ++tileId });
+  insertRandomlyNewTile({ id: ++tileId, value: 2 });
+
+  for (let i = 0; i < Number(config.numberOfObstacles); i++) {
+    insertRandomlyNewTile({ id: ++tileId, value: "x" });
+  }
 }
 start();
 
@@ -63,7 +78,7 @@ const onKeyDownHandler = function (e) {
   if (Object.keys(KEY_CODE_TO_DIRECTION).includes(e.code)) {
     isReadyForUserInput = false;
     slideAndMergeTiles({ direction: KEY_CODE_TO_DIRECTION[e.code] });
-    insertRandomlyNewTile({ id: ++tileId });
+    insertRandomlyNewTile({ id: ++tileId, value: 2 });
   }
 };
 
