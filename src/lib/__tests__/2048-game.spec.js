@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-
+import { DIRECTION } from "./../../constants";
 import createGameEngine from "../2048-game";
 
 describe("2048-game", () => {
@@ -59,8 +59,7 @@ describe("2048-game", () => {
 
   describe("slideAndMergeTiles", () => {
     it("should slide tiles right and merge the same values", () => {
-      const { DIRECTION, state, loadGrid, slideAndMergeTiles } =
-        createGameEngine();
+      const { state, loadGrid, slideAndMergeTiles } = createGameEngine();
 
       loadGrid([
         [{ value: 2 }, { value: 2 }, { value: 2 }, { value: 2 }],
@@ -80,8 +79,7 @@ describe("2048-game", () => {
     });
 
     it("should slide tiles left and merge the same values", () => {
-      const { DIRECTION, state, loadGrid, slideAndMergeTiles } =
-        createGameEngine();
+      const { state, loadGrid, slideAndMergeTiles } = createGameEngine();
 
       loadGrid([
         [{ value: 2 }, { value: 2 }, { value: 2 }, { value: 2 }],
@@ -101,8 +99,7 @@ describe("2048-game", () => {
     });
 
     it("should slide tiles up and merge the same values", () => {
-      const { DIRECTION, state, loadGrid, slideAndMergeTiles } =
-        createGameEngine();
+      const { state, loadGrid, slideAndMergeTiles } = createGameEngine();
 
       loadGrid([
         [{ value: 2 }, { value: 2 }, { value: 2 }, { value: 2 }],
@@ -122,8 +119,7 @@ describe("2048-game", () => {
     });
 
     it("should slide tiles down and merge the same values", () => {
-      const { DIRECTION, state, loadGrid, slideAndMergeTiles } =
-        createGameEngine();
+      const { state, loadGrid, slideAndMergeTiles } = createGameEngine();
 
       loadGrid([
         [{ value: 2 }, { value: 2 }, { value: 2 }, { value: 2 }],

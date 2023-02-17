@@ -1,11 +1,5 @@
 import { reactive, computed } from "vue";
-
-const DIRECTION = {
-  UP: "up",
-  DOWN: "down",
-  LEFT: "left",
-  RIGHT: "right",
-};
+import { DIRECTION } from "./../constants";
 
 export default function createGameEngine() {
   let state = reactive({

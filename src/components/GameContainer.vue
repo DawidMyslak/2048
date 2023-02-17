@@ -27,7 +27,11 @@
 
 <script setup>
 import { provide, onBeforeMount, onBeforeUnmount, reactive, watch } from "vue";
-import { DEFAULT_GRID_SIZE, DEFAULT_NUMBER_OF_OBSTACLES } from "./../constants";
+import {
+  DEFAULT_GRID_SIZE,
+  DEFAULT_NUMBER_OF_OBSTACLES,
+  KEY_CODE_TO_DIRECTION,
+} from "./../constants";
 import createGameEngine from "../lib/2048-game";
 import GameGrid from "./GameGrid.vue";
 
@@ -35,7 +39,6 @@ const gameEngine = createGameEngine();
 provide("gameEngine", gameEngine);
 
 const {
-  DIRECTION,
   state,
   initNewGame,
   insertNumberTileRandomly,
@@ -65,12 +68,6 @@ watch(config, () => {
   start();
 });
 
-const KEY_CODE_TO_DIRECTION = {
-  ArrowRight: DIRECTION.RIGHT,
-  ArrowLeft: DIRECTION.LEFT,
-  ArrowUp: DIRECTION.UP,
-  ArrowDown: DIRECTION.DOWN,
-};
 let isReadyForUserInput = true;
 
 const onKeyDownHandler = function (e) {
