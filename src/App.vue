@@ -1,7 +1,7 @@
 <template>
-  <GameContainer />
+  <GameCore />
 </template>
 
 <script setup>
-import GameContainer from "./components/GameContainer.vue";
+import GameCore from "./components/GameCore.vue";
 </script>

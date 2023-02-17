@@ -1,5 +1,5 @@
 <template>
-  <div class="game-container">
+  <div class="game-core">
     <GameDashboard @click:newGame="startNewGame($event)" />
     <GameGrid />
   </div>
@@ -11,7 +11,7 @@ import {
   DEFAULT_GRID_SIZE,
   DEFAULT_NUMBER_OF_OBSTACLES,
   KEYBOARD_ARROW_CODE_TO_DIRECTION,
-} from "./../constants";
+} from "../constants";
 import createGameEngine from "../lib/2048-game";
 import trackKeyboardInput from "../lib/keyboard-input";
 import GameDashboard from "./GameDashboard.vue";
