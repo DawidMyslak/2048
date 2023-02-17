@@ -37,7 +37,7 @@ defineProps({
   color: #fff;
   text-shadow: 1px 1px 0 rgba(26, 67, 114, 0.5);
   font-size: 32px;
-  animation: tile-animation 0.4s ease-in;
+  animation: tile-animation 0.2s ease-in;
 }
 
 .value-2 {
@@ -74,15 +74,12 @@ defineProps({
 
 @keyframes tile-animation {
   0% {
-    opacity: 1;
     transform: scale(0.5);
   }
   50% {
-    opacity: 1;
     transform: scale(1.1);
   }
   100% {
-    opacity: 1;
     transform: scale(1);
   }
 }

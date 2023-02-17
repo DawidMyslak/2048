@@ -23,33 +23,23 @@ import GameTile from "./GameTile.vue";
 import GameTileEmpty from "./GameTileEmpty.vue";
 
 const gameEngine = inject("gameEngine");
-const { state } = gameEngine;
+const { state, getTiles } = gameEngine;
 
 const tiles = computed(() => {
-  const result = [];
-
-  // extract non-empty tiles from the grid
-  // and fletten them to an array
-  for (let i = 0; i < state.grid.length; i++) {
-    for (let j = 0; j < state.grid.length; j++) {
-      if (state.grid[i][j]) {
-        result.push({
-          ...state.grid[i][j],
-          x: TILE_SPACING + j * (TILE_SIZE + 2 * TILE_SPACING),
-          y: TILE_SPACING + i * (TILE_SIZE + 2 * TILE_SPACING),
-        });
-      }
-    }
-  }
-
-  // keeping the same tiles order is important as Vue can use the :key="tile.id"
-  // to track each tile component and not recreate them every singe time
-  // when re-rendering the list, in this way CSS transitions are also possible
-  result.sort((a, b) => {
-    return a.id - b.id;
-  });
-
-  return result;
+  return getTiles.value
+    .map(({ tile, positionInGrid }) => {
+      return {
+        ...tile,
+        x: TILE_SPACING + positionInGrid.j * (TILE_SIZE + 2 * TILE_SPACING),
+        y: TILE_SPACING + positionInGrid.i * (TILE_SIZE + 2 * TILE_SPACING),
+      };
+    })
+    .sort((a, b) => {
+      // keeping constant tiles order is important as Vue can use the :key="tile.id"
+      // to track each tile component and not recreate them every singe time
+      // when re-rendering the list, in this way CSS transitions are also possible
+      return a.id - b.id;
+    });
 });
 </script>
 

@@ -1,4 +1,4 @@
-import { reactive } from "vue";
+import { reactive, computed } from "vue";
 
 const DIRECTION = {
   UP: "up",
@@ -27,25 +27,28 @@ export default function createGameEngine() {
     state.grid = grid;
   }
 
-  function findEmptyTiles() {
-    const emptyTiles = [];
+  function findEmptyPositionsInGrid() {
+    const result = [];
 
     for (let i = 0; i < state.grid.length; i++) {
       for (let j = 0; j < state.grid.length; j++) {
         if (state.grid[i][j] === null) {
-          emptyTiles.push({ i, j });
+          result.push({ i, j });
         }
       }
     }
 
-    return emptyTiles;
+    return result;
   }
 
   function insertRandomlyNewTile(customProps) {
-    const emptyTiles = findEmptyTiles();
-    if (emptyTiles.length === 0) return false;
+    const emptyPositions = findEmptyPositionsInGrid();
+    if (emptyPositions.length === 0) return false;
 
-    const { i, j } = emptyTiles[Math.floor(Math.random() * emptyTiles.length)];
+    // select random empty position
+    const { i, j } =
+      emptyPositions[Math.floor(Math.random() * emptyPositions.length)];
+
     state.grid[i][j] = {
       ...customProps,
       value: 2,
@@ -132,6 +135,24 @@ export default function createGameEngine() {
     }
   }
 
+  const getTiles = computed(() => {
+    // extract tiles from the grid and fletten them to an array
+    const result = [];
+
+    for (let i = 0; i < state.grid.length; i++) {
+      for (let j = 0; j < state.grid.length; j++) {
+        if (state.grid[i][j] !== null) {
+          result.push({
+            tile: state.grid[i][j],
+            positionInGrid: { i, j },
+          });
+        }
+      }
+    }
+
+    return result;
+  });
+
   return {
     DIRECTION,
     state,
@@ -139,5 +160,6 @@ export default function createGameEngine() {
     loadGrid,
     insertRandomlyNewTile,
     slideAndMergeTiles,
+    getTiles,
   };
 }
