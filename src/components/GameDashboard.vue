@@ -22,7 +22,7 @@
       </select>
     </div>
     <div>
-      <button @click="newGameClicked">NEW GAME</button>
+      <button @click="$emit('click:newGame', gameConfig)">NEW GAME</button>
     </div>
   </div>
 </template>
@@ -31,8 +31,6 @@
 import { inject, reactive } from "vue";
 import { DEFAULT_GRID_SIZE, DEFAULT_NUMBER_OF_OBSTACLES } from "../constants";
 
-const emit = defineEmits(["start-new-game"]);
-
 const gameEngine = inject("gameEngine");
 const { state } = gameEngine;
 
@@ -40,10 +38,6 @@ const gameConfig = reactive({
   gridSize: DEFAULT_GRID_SIZE,
   numberOfObstacles: DEFAULT_NUMBER_OF_OBSTACLES,
 });
-
-function newGameClicked() {
-  emit("start-new-game", gameConfig);
-}
 </script>
 
 <style scoped>

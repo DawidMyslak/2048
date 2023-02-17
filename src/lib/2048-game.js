@@ -148,7 +148,6 @@ export default function createGameEngine() {
   });
 
   return {
-    DIRECTION,
     state,
     initGame,
     loadGrid,

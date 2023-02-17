@@ -1,18 +1,19 @@
 <template>
   <div class="game-container">
-    <GameDashboard @start-new-game="startNewGame($event)" />
+    <GameDashboard @click:newGame="startNewGame($event)" />
     <GameGrid />
   </div>
 </template>
 
 <script setup>
-import { provide, onBeforeMount, onBeforeUnmount } from "vue";
+import { provide } from "vue";
 import {
   DEFAULT_GRID_SIZE,
   DEFAULT_NUMBER_OF_OBSTACLES,
-  KEY_CODE_TO_DIRECTION,
+  KEYBOARD_ARROW_CODE_TO_DIRECTION,
 } from "./../constants";
 import createGameEngine from "../lib/2048-game";
+import trackKeyboardInput from "../lib/keyboard-input";
 import GameDashboard from "./GameDashboard.vue";
 import GameGrid from "./GameGrid.vue";
 
@@ -44,31 +45,10 @@ startNewGame({
   numberOfObstacles: DEFAULT_NUMBER_OF_OBSTACLES,
 });
 
-let isReadyForUserInput = true;
-
-const onKeyDownHandler = function (e) {
-  if (!isReadyForUserInput) return;
-
-  if (Object.keys(KEY_CODE_TO_DIRECTION).includes(e.code)) {
-    isReadyForUserInput = false;
-    slideAndMergeTiles({ direction: KEY_CODE_TO_DIRECTION[e.code] });
+trackKeyboardInput({
+  onArrowPressed: ({ code }) => {
+    slideAndMergeTiles({ direction: KEYBOARD_ARROW_CODE_TO_DIRECTION[code] });
     insertNumberTileRandomly({ id: ++tileId });
-  }
-};
-
-const onKeyUpHandler = function (e) {
-  if (Object.keys(KEY_CODE_TO_DIRECTION).includes(e.code)) {
-    isReadyForUserInput = true;
-  }
-};
-
-onBeforeMount(() => {
-  window.addEventListener("keydown", onKeyDownHandler);
-  window.addEventListener("keyup", onKeyUpHandler);
-});
-
-onBeforeUnmount(() => {
-  window.removeEventListener("keydown", onKeyDownHandler);
-  window.removeEventListener("keyup", onKeyUpHandler);
+  },
 });
 </script>

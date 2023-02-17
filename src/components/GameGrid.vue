@@ -35,7 +35,7 @@ const tiles = computed(() => {
       };
     })
     .sort((a, b) => {
-      // keeping constant tiles order is important as Vue can use the :key="tile.id"
+      // tiles order is important as Vue can use the :key="tile.id"
       // to track each tile component and not recreate them every singe time
       // when re-rendering the list, in this way CSS transitions are also possible
       return a.id - b.id;

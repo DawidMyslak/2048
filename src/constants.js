@@ -11,7 +11,7 @@ export const DIRECTION = {
   RIGHT: "right",
 };
 
-export const KEY_CODE_TO_DIRECTION = {
+export const KEYBOARD_ARROW_CODE_TO_DIRECTION = {
   ArrowRight: DIRECTION.RIGHT,
   ArrowLeft: DIRECTION.LEFT,
   ArrowUp: DIRECTION.UP,
