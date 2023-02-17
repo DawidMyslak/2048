@@ -3,11 +3,11 @@ import { DIRECTION } from "./../../constants";
 import createGameEngine from "../2048-game";
 
 describe("2048-game", () => {
-  describe("initNewGame", () => {
+  describe("initGame", () => {
     it("should initialise the game", () => {
-      const { state, initNewGame } = createGameEngine();
+      const { state, initGame } = createGameEngine();
 
-      initNewGame({ gridSize: 4 });
+      initGame({ gridSize: 4 });
 
       expect(state.score).toEqual(0);
       expect(state.grid).toMatchObject([
@@ -21,9 +21,9 @@ describe("2048-game", () => {
 
   describe("insertTileRandomly", () => {
     it("should insert randomly a new tile and return true", () => {
-      const { initNewGame, insertTileRandomly } = createGameEngine();
+      const { initGame, insertTileRandomly } = createGameEngine();
 
-      initNewGame({ gridSize: 4 });
+      initGame({ gridSize: 4 });
       const hasSucceeded = insertTileRandomly({ value: 2 });
 
       expect(hasSucceeded).toEqual(true);

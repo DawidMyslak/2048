@@ -9,7 +9,7 @@ export default function createGameEngine() {
     grid: null,
   });
 
-  function initNewGame({ gridSize }) {
+  function initGame({ gridSize }) {
     state.score = 0;
 
     state.grid = Array(gridSize)
@@ -150,7 +150,7 @@ export default function createGameEngine() {
   return {
     DIRECTION,
     state,
-    initNewGame,
+    initGame,
     loadGrid,
     insertTileRandomly,
     insertNumberTileRandomly: (customProps) => {

@@ -39,6 +39,7 @@ defineProps({
 }
 
 .type-number {
+  background-color: #222;
   align-items: center;
   justify-content: center;
   font-size: 32px;
@@ -57,7 +58,7 @@ defineProps({
 }
 
 .value-8 {
-  background-color: #ec8b81;
+  background-color: #e79187;
 }
 
 .value-16 {
@@ -65,35 +66,35 @@ defineProps({
 }
 
 .value-32 {
-  background-color: #9a3471;
+  background-color: #aa3d46;
 }
 
 .value-64 {
-  background-color: #5f2872;
+  background-color: #9a3471;
 }
 
 .value-128 {
-  background-color: #000;
+  background-color: #7f1f59;
   font-size: 28px;
 }
 
 .value-256 {
-  background-color: #000;
+  background-color: #5f2872;
   font-size: 28px;
 }
 
 .value-512 {
-  background-color: #000;
+  background-color: #421053;
   font-size: 28px;
 }
 
 .value-1024 {
-  background-color: #000;
+  background-color: #d5b541;
   font-size: 24px;
 }
 
 .value-2048 {
-  background-color: #000;
+  background-color: #f5c519;
   font-size: 24px;
 }
 
