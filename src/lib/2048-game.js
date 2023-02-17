@@ -9,6 +9,8 @@ const DIRECTION = {
 
 export default function createGameEngine() {
   let state = reactive({
+    isGameCompleted: false,
+    isGameOver: false,
     score: 0,
     grid: null,
   });
@@ -25,7 +27,7 @@ export default function createGameEngine() {
     state.grid = grid;
   }
 
-  function insertRandomlyNewTile(customProps) {
+  function findEmptyTiles() {
     const emptyTiles = [];
 
     for (let i = 0; i < state.grid.length; i++) {
@@ -36,6 +38,11 @@ export default function createGameEngine() {
       }
     }
 
+    return emptyTiles;
+  }
+
+  function insertRandomlyNewTile(customProps) {
+    const emptyTiles = findEmptyTiles();
     if (emptyTiles.length === 0) return false;
 
     const { i, j } = emptyTiles[Math.floor(Math.random() * emptyTiles.length)];
@@ -108,6 +115,7 @@ export default function createGameEngine() {
           const mergedTile = getTile(numberIndex);
           mergedTile.value *= 2;
           state.score += mergedTile.value;
+          if (mergedTile.value === 2048) state.isGameCompleted = true;
 
           setTile(numberIndex - 1, mergedTile);
           setTile(numberIndex, null);
