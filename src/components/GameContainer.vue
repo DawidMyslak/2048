@@ -38,7 +38,8 @@ const {
   DIRECTION,
   state,
   initNewGame,
-  insertRandomlyNewTile,
+  insertNumberTileRandomly,
+  insertObstacleTileRandomly,
   slideAndMergeTiles,
 } = gameEngine;
 
@@ -52,10 +53,10 @@ function start() {
   tileId = 0;
 
   initNewGame({ gridSize: Number(config.gridSize) });
-  insertRandomlyNewTile({ id: ++tileId, value: 2 });
+  insertNumberTileRandomly({ id: ++tileId });
 
   for (let i = 0; i < Number(config.numberOfObstacles); i++) {
-    insertRandomlyNewTile({ id: ++tileId, value: "x" });
+    insertObstacleTileRandomly({ id: ++tileId });
   }
 }
 start();
@@ -78,7 +79,7 @@ const onKeyDownHandler = function (e) {
   if (Object.keys(KEY_CODE_TO_DIRECTION).includes(e.code)) {
     isReadyForUserInput = false;
     slideAndMergeTiles({ direction: KEY_CODE_TO_DIRECTION[e.code] });
-    insertRandomlyNewTile({ id: ++tileId, value: 2 });
+    insertNumberTileRandomly({ id: ++tileId });
   }
 };
 

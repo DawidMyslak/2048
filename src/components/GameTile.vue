@@ -1,7 +1,7 @@
 <template>
   <div
     class="game-tile"
-    :class="'value-' + tile.value"
+    :class="['type-' + tile.type, 'value-' + tile.value]"
     :style="{
       left: tile.x + 'px',
       top: tile.y + 'px',
@@ -28,23 +28,24 @@ defineProps({
 .game-tile {
   position: absolute;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  border-radius: 16px;
   transition-duration: 0.2s;
   transition-property: left, top;
-  border-radius: 16px;
-  font-weight: bold;
-  color: #fff;
-  text-shadow: 1px 1px 0 rgba(26, 67, 114, 0.5);
-  font-size: 32px;
-  animation: tile-animation 0.2s ease-in;
-  background-color: #000;
 }
 
-.value-x {
+.type-obstacle {
   background-color: #444;
   border: 4px solid #333;
-  animation: none;
+}
+
+.type-number {
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  color: #fff;
+  font-weight: bold;
+  text-shadow: 1px 1px 0 rgba(26, 67, 114, 0.5);
+  animation: tile-animation 0.2s ease-in;
 }
 
 .value-2 {

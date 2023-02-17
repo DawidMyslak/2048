@@ -19,36 +19,36 @@ describe("2048-game", () => {
     });
   });
 
-  describe("insertRandomlyNewTile", () => {
+  describe("insertTileRandomly", () => {
     it("should insert randomly a new tile and return true", () => {
-      const { initNewGame, insertRandomlyNewTile } = createGameEngine();
+      const { initNewGame, insertTileRandomly } = createGameEngine();
 
       initNewGame({ gridSize: 4 });
-      const hasSucceeded = insertRandomlyNewTile({ value: 2 });
+      const hasSucceeded = insertTileRandomly({ value: 2 });
 
       expect(hasSucceeded).toEqual(true);
     });
 
     it("should not insert a new tile when there is no space and return false", () => {
-      const { loadGrid, insertRandomlyNewTile } = createGameEngine();
+      const { loadGrid, insertTileRandomly } = createGameEngine();
 
       loadGrid([
         [{ value: 2 }, { value: 4 }],
         [{ value: 8 }, { value: 16 }],
       ]);
-      const hasSucceeded = insertRandomlyNewTile({ value: 2 });
+      const hasSucceeded = insertTileRandomly({ value: 2 });
 
       expect(hasSucceeded).toEqual(false);
     });
 
     it("should insert a new tile into the last empty space", () => {
-      const { state, loadGrid, insertRandomlyNewTile } = createGameEngine();
+      const { state, loadGrid, insertTileRandomly } = createGameEngine();
 
       loadGrid([
         [{ value: 2 }, { value: 4 }],
         [{ value: 8 }, null],
       ]);
-      insertRandomlyNewTile({ value: 2 });
+      insertTileRandomly({ value: 2 });
 
       expect(state.grid).toMatchObject([
         [{ value: 2 }, { value: 4 }],

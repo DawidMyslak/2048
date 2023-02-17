@@ -41,7 +41,7 @@ export default function createGameEngine() {
     return result;
   }
 
-  function insertRandomlyNewTile(tile) {
+  function insertTileRandomly(tile) {
     const emptyPositions = findEmptyPositionsInGrid();
     if (emptyPositions.length === 0) return false;
 
@@ -95,7 +95,7 @@ export default function createGameEngine() {
         if (emptyIndex === null) {
           emptyIndex = i;
         }
-      } else if (getTile(i).value === "x") {
+      } else if (getTile(i).type === "obstacle") {
         // found an obstacle
         emptyIndex = null;
       } else {
@@ -158,7 +158,13 @@ export default function createGameEngine() {
     state,
     initNewGame,
     loadGrid,
-    insertRandomlyNewTile,
+    insertTileRandomly,
+    insertNumberTileRandomly: (customProps) => {
+      return insertTileRandomly({ ...customProps, type: "number", value: 2 });
+    },
+    insertObstacleTileRandomly: (customProps) => {
+      return insertTileRandomly({ ...customProps, type: "obstacle" });
+    },
     slideAndMergeTiles,
     getTiles,
   };
