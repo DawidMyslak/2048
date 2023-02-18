@@ -40,7 +40,7 @@
     >
       NEW GAME
     </button>
-    <div class="author">© <strong>Dawid Myślak</strong> 2023</div>
+    <div class="author">© 2023 <strong>Dawid Myślak</strong></div>
   </div>
 </template>
 
