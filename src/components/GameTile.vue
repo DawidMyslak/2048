@@ -45,7 +45,7 @@ defineProps({
   font-size: 32px;
   color: #fff;
   font-weight: bold;
-  text-shadow: 1px 1px 0 rgba(26, 67, 114, 0.5);
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.4);
   animation: tile-animation 0.2s ease-in;
 }
 

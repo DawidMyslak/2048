@@ -17,3 +17,19 @@ export const KEYBOARD_ARROW_CODE_TO_DIRECTION = {
   ArrowUp: DIRECTION.UP,
   ArrowDown: DIRECTION.DOWN,
 };
+
+export const GRID_OPTIONS = [
+  { value: 4, label: "4x4" },
+  { value: 5, label: "5x5" },
+  { value: 6, label: "6x6" },
+  { value: 7, label: "7x7" },
+  { value: 8, label: "8x8" },
+];
+
+export const OBSTACLES_OPTIONS = [
+  { value: 0, label: "0" },
+  { value: 1, label: "1" },
+  { value: 2, label: "2" },
+  { value: 3, label: "3" },
+  { value: 4, label: "4" },
+];

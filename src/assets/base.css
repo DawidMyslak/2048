@@ -1,15 +1,3 @@
-/* color palette */
-:root {
-  --vt-c-white: #ffffff;
-  --vt-c-black: #000000;
-}
-
-/* semantic color variables for this project */
-:root {
-  --color-background: var(--vt-c-white);
-  --color-text: var(--vt-c-black);
-}
-
 *,
 *::before,
 *::after {
@@ -21,8 +9,8 @@
 
 body {
   min-height: 100vh;
-  color: var(--color-text);
-  background: var(--color-background);
+  color: #000;
+  background: #fff;
   line-height: 1.2;
   font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",

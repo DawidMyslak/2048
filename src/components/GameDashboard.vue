@@ -47,7 +47,12 @@
 
 <script setup>
 import { inject, reactive } from "vue";
-import { DEFAULT_GRID_SIZE, DEFAULT_NUMBER_OF_OBSTACLES } from "../constants";
+import {
+  DEFAULT_GRID_SIZE,
+  DEFAULT_NUMBER_OF_OBSTACLES,
+  GRID_OPTIONS,
+  OBSTACLES_OPTIONS,
+} from "../constants";
 
 const gameEngine = inject("gameEngine");
 const { state } = gameEngine;
@@ -56,22 +61,6 @@ const gameConfig = reactive({
   gridSize: DEFAULT_GRID_SIZE,
   numberOfObstacles: DEFAULT_NUMBER_OF_OBSTACLES,
 });
-
-const GRID_OPTIONS = [
-  { value: 4, label: "4x4" },
-  { value: 5, label: "5x5" },
-  { value: 6, label: "6x6" },
-  { value: 7, label: "7x7" },
-  { value: 8, label: "8x8" },
-];
-
-const OBSTACLES_OPTIONS = [
-  { value: 0, label: "0" },
-  { value: 1, label: "1" },
-  { value: 2, label: "2" },
-  { value: 3, label: "3" },
-  { value: 4, label: "4" },
-];
 </script>
 
 <style scoped>
