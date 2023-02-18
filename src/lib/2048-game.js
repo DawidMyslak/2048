@@ -37,15 +37,13 @@ export default function createGameEngine() {
 
   function insertTileRandomly(tile) {
     const emptyPositions = findEmptyPositionsInGrid();
-    if (emptyPositions.length === 0) return false;
+    if (emptyPositions.length === 0) return;
 
     // select random empty position
     const { i, j } =
       emptyPositions[Math.floor(Math.random() * emptyPositions.length)];
 
     state.grid[i][j] = tile;
-
-    return true;
   }
 
   function slideAndMergeTilesInRow({ rowIndex, direction }) {
