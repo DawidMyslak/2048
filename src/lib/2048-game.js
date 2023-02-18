@@ -1,4 +1,4 @@
-import { reactive, computed } from "vue";
+import { reactive, computed, toRaw } from "vue";
 import { DIRECTION } from "./../constants";
 
 export default function createGameEngine() {
@@ -37,9 +37,27 @@ export default function createGameEngine() {
     return result;
   }
 
+  function checkIfGameIsOver() {
+    // to check if the game is over we will simulate
+    // all 4 moves (left, right, up and down)
+    // on the cloned state and compare the score
+    let clonedState;
+
+    clonedState = {
+      score: 0,
+      grid: structuredClone(toRaw(state.grid)),
+    };
+
+    console.log(clonedState);
+  }
+
   function insertTileRandomly(tile) {
     const emptyPositions = findEmptyPositionsInGrid();
-    if (emptyPositions.length === 0) return;
+
+    if (emptyPositions.length === 0) {
+      checkIfGameIsOver();
+      return;
+    }
 
     // select random empty position
     const { i, j } =

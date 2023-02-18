@@ -5,15 +5,15 @@ export const TILE_SIZE = 80; // px
 export const TILE_SPACING = 4; // 4px
 
 export const DIRECTION = {
-  UP: "up",
-  DOWN: "down",
   LEFT: "left",
   RIGHT: "right",
+  UP: "up",
+  DOWN: "down",
 };
 
 export const KEYBOARD_ARROW_CODE_TO_DIRECTION = {
-  ArrowRight: DIRECTION.RIGHT,
   ArrowLeft: DIRECTION.LEFT,
+  ArrowRight: DIRECTION.RIGHT,
   ArrowUp: DIRECTION.UP,
   ArrowDown: DIRECTION.DOWN,
 };
