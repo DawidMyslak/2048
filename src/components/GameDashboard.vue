@@ -34,14 +34,13 @@
         </button>
       </div>
     </div>
-    <div>
-      <button
-        class="button button-large"
-        @click="$emit('click:newGame', gameConfig)"
-      >
-        NEW GAME
-      </button>
-    </div>
+    <button
+      class="button button-large"
+      @click="$emit('click:newGame', gameConfig)"
+    >
+      NEW GAME
+    </button>
+    <div class="author">© <strong>Dawid Myślak</strong> 2023</div>
   </div>
 </template>
 
@@ -69,6 +68,7 @@ const gameConfig = reactive({
   background-color: #f1f1f1;
   padding: 24px;
   margin-right: 12px;
+  position: relative;
 }
 
 .section {
@@ -121,7 +121,15 @@ const gameConfig = reactive({
 }
 
 .button-large {
+  width: 100%;
   font-size: 20px;
   padding: 8px 12px;
+}
+
+.author {
+  position: absolute;
+  font-size: 13px;
+  color: #444;
+  bottom: 24px;
 }
 </style>
