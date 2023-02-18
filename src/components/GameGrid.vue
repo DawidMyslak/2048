@@ -47,7 +47,6 @@ const tiles = computed(() => {
 .game-grid {
   border-radius: 24px;
   background-color: #f1f1f1;
-  user-select: none;
   padding: 12px;
 }
 

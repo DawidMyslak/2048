@@ -52,3 +52,10 @@ trackKeyboardInput({
   },
 });
 </script>
+
+<style scoped>
+.game-core {
+  display: flex;
+  user-select: none;
+}
+</style>
