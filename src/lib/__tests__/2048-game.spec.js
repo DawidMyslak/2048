@@ -7,9 +7,12 @@ describe("2048-game", () => {
     it("should initialise the game", () => {
       const { state, initGame } = createGameEngine();
 
+      state.isGameCompleted = true;
+      state.isGameOver = true;
+      state.score = 1000;
+
       initGame({ gridSize: 4 });
 
-      expect(state.score).toEqual(0);
       expect(state).toMatchObject({
         isGameCompleted: false,
         isGameOver: false,
@@ -154,6 +157,70 @@ describe("2048-game", () => {
         [null, { value: 4 }, null, { value: 2 }],
         [{ value: 4 }, { value: 4 }, { value: 2 }, { value: 4 }],
         [{ value: 32 }, { value: 16 }, { value: 4 }, { value: 16 }],
+      ]);
+    });
+
+    it("should stop sliding tiles when hit an obstacle", () => {
+      const { state, loadGrid, slideAndMergeTiles } = createGameEngine();
+
+      loadGrid([
+        [{ value: 2 }, { value: 2 }, null, { type: "obstacle" }],
+        [{ value: 4 }, { type: "obstacle" }, { value: 4 }, { value: 4 }],
+        [{ value: 8 }, { value: 8 }, { type: "obstacle" }, null],
+        [{ type: "obstacle" }, { value: 8 }, null, null],
+      ]);
+
+      slideAndMergeTiles({ direction: DIRECTION.RIGHT });
+
+      expect(state.grid).toMatchObject([
+        [null, null, { value: 4 }, { type: "obstacle" }],
+        [{ value: 4 }, { type: "obstacle" }, null, { value: 8 }],
+        [null, { value: 16 }, { type: "obstacle" }, null],
+        [{ type: "obstacle" }, null, null, { value: 8 }],
+      ]);
+    });
+
+    it("should detect when 2048 tile is achieved", () => {
+      const { state, loadGrid, slideAndMergeTiles } = createGameEngine();
+
+      state.isGameCompleted = false;
+
+      loadGrid([
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [{ value: 1024 }, { value: 1024 }, null, null],
+      ]);
+
+      slideAndMergeTiles({ direction: DIRECTION.RIGHT });
+
+      expect(state.isGameCompleted).toEqual(true);
+      expect(state.grid).toMatchObject([
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, { value: 2048 }],
+      ]);
+    });
+  });
+
+  describe("getTiles", () => {
+    it("should get all tiles from the grid flatten them to an array", () => {
+      const { loadGrid, getTiles } = createGameEngine();
+
+      loadGrid([
+        [{ value: 4 }, { value: 32 }, null, null],
+        [{ value: 8 }, { value: 16 }, null, null],
+        [null, null, null, null],
+        [null, null, null, { value: 64 }],
+      ]);
+
+      expect(getTiles.value).toMatchObject([
+        { tile: { value: 4 }, positionInGrid: { i: 0, j: 0 } },
+        { tile: { value: 32 }, positionInGrid: { i: 0, j: 1 } },
+        { tile: { value: 8 }, positionInGrid: { i: 1, j: 0 } },
+        { tile: { value: 16 }, positionInGrid: { i: 1, j: 1 } },
+        { tile: { value: 64 }, positionInGrid: { i: 3, j: 3 } },
       ]);
     });
   });

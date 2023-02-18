@@ -10,6 +10,8 @@ export default function createGameEngine() {
   });
 
   function initGame({ gridSize }) {
+    state.isGameCompleted = false;
+    state.isGameOver = false;
     state.score = 0;
 
     state.grid = Array(gridSize)
@@ -47,10 +49,6 @@ export default function createGameEngine() {
   }
 
   function slideAndMergeTilesInRow({ rowIndex, direction }) {
-    let emptyIndex = null;
-    let numberIndex = null;
-    let lastMergedNumberIndex = 0;
-
     const getTile = (i) => {
       switch (direction) {
         case DIRECTION.LEFT:
@@ -81,21 +79,29 @@ export default function createGameEngine() {
       }
     };
 
+    let emptyIndex = null;
+    let numberIndex = null;
+    let lastMergedNumberIndex = 0;
+
+    // sliding and merging is done in a single for-loop
+    // to achieve the best performance of the algorithm
     for (let i = 0; i < state.grid.length; i++) {
       if (getTile(i) === null) {
-        // found an empty tile
+        // found an empty space, we will start tracking
+        // its position to be able to move numbers there
         if (emptyIndex === null) {
           emptyIndex = i;
         }
       } else if (getTile(i).type === "obstacle") {
-        // found an obstacle
+        // found an obstacle, we need to reset the empty space
+        // position and start looking for a new one
         emptyIndex = null;
       } else {
         // found a number
         numberIndex = i;
 
         if (emptyIndex !== null) {
-          // move number to the empty tile
+          // move number to the empty space
           setTile(emptyIndex, getTile(numberIndex));
           setTile(numberIndex, null);
           numberIndex = emptyIndex;
@@ -106,9 +112,11 @@ export default function createGameEngine() {
           getTile(numberIndex - 1)?.value === getTile(numberIndex).value &&
           numberIndex > lastMergedNumberIndex
         ) {
-          // neighbour numbers the same, merge them
+          // neighbour numbers are the same, merge them
           const mergedTile = getTile(numberIndex);
           mergedTile.value *= 2;
+
+          // bump the score and check if 2048 tile was achieved
           state.score += mergedTile.value;
           if (mergedTile.value === 2048) state.isGameCompleted = true;
 
@@ -128,7 +136,7 @@ export default function createGameEngine() {
   }
 
   const getTiles = computed(() => {
-    // extract tiles from the grid and fletten them to an array
+    // extract tiles from the grid and flatten them to an array
     const result = [];
 
     for (let i = 0; i < state.grid.length; i++) {
