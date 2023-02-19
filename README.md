@@ -1,4 +1,4 @@
-# 2048
+# 2048 game
 
 ![2048 game](http://dawid.myslak.me/images/2048-game.png)
 
