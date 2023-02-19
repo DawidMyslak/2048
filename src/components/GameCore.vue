@@ -34,7 +34,7 @@ let tileId;
 function startNewGame({ gridSize, numberOfObstacles }) {
   tileId = 0;
 
-  initGame({ gridSize: gridSize });
+  initGame({ gridSize });
   insertNumberTileRandomly({ id: ++tileId });
 
   for (let i = 0; i < numberOfObstacles; i++) {
