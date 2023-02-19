@@ -38,24 +38,32 @@ export default function createGameEngine() {
   }
 
   function checkIfGameIsOver() {
-    // to check if the game is over we will simulate
-    // all 4 moves (left, right, up and down)
-    // on the cloned state and compare the score
-    let clonedState;
+    for (let direction of [
+      DIRECTION.LEFT,
+      DIRECTION.RIGHT,
+      DIRECTION.UP,
+      DIRECTION.DOWN,
+    ]) {
+      // to check if the game is over we will simulate
+      // all 4 possible moves (left, right, up and down)
+      // on the cloned state and compare the score
+      let clonedState = {
+        score: 0,
+        grid: structuredClone(toRaw(state.grid)),
+      };
 
-    clonedState = {
-      score: 0,
-      grid: structuredClone(toRaw(state.grid)),
-    };
+      slideAndMergeTiles(clonedState, { direction });
+      if (clonedState.score > 0) return false;
+    }
 
-    console.log(clonedState);
+    return true;
   }
 
   function insertTileRandomly(tile) {
     const emptyPositions = findEmptyPositionsInGrid();
 
     if (emptyPositions.length === 0) {
-      checkIfGameIsOver();
+      state.isGameOver = checkIfGameIsOver();
       return;
     }
 
@@ -66,7 +74,7 @@ export default function createGameEngine() {
     state.grid[i][j] = tile;
   }
 
-  function slideAndMergeTilesInRow({ rowIndex, direction }) {
+  function slideAndMergeTilesInRow(state, { rowIndex, direction }) {
     const getTile = (i) => {
       switch (direction) {
         case DIRECTION.LEFT:
@@ -147,9 +155,9 @@ export default function createGameEngine() {
     }
   }
 
-  function slideAndMergeTiles({ direction }) {
+  function slideAndMergeTiles(state, { direction }) {
     for (let i = 0; i < state.grid.length; i++) {
-      slideAndMergeTilesInRow({ rowIndex: i, direction });
+      slideAndMergeTilesInRow(state, { rowIndex: i, direction });
     }
   }
 
@@ -177,12 +185,14 @@ export default function createGameEngine() {
     loadGrid,
     insertTileRandomly,
     insertNumberTileRandomly: (customProps) => {
-      return insertTileRandomly({ ...customProps, type: "number", value: 2 });
+      insertTileRandomly({ ...customProps, type: "number", value: 2 });
     },
     insertObstacleTileRandomly: (customProps) => {
-      return insertTileRandomly({ ...customProps, type: "obstacle" });
+      insertTileRandomly({ ...customProps, type: "obstacle" });
     },
-    slideAndMergeTiles,
+    slideAndMergeTiles: ({ direction }) => {
+      slideAndMergeTiles(state, { direction });
+    },
     getTiles,
   };
 }

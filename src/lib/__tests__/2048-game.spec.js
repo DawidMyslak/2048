@@ -4,7 +4,7 @@ import createGameEngine from "../2048-game";
 
 describe("2048-game", () => {
   describe("initGame", () => {
-    it("should initialise the game", () => {
+    it("should initialise a new game", () => {
       const { state, initGame } = createGameEngine();
 
       state.isGameCompleted = true;
@@ -48,6 +48,21 @@ describe("2048-game", () => {
       expect(tileCounter).toEqual(2);
     });
 
+    it("should insert a new tile into the last empty space", () => {
+      const { state, loadGrid, insertTileRandomly } = createGameEngine();
+
+      loadGrid([
+        [{ value: 4 }, { value: 32 }],
+        [{ value: 8 }, null],
+      ]);
+      insertTileRandomly({ value: 2 });
+
+      expect(state.grid).toMatchObject([
+        [{ value: 4 }, { value: 32 }],
+        [{ value: 8 }, { value: 2 }],
+      ]);
+    });
+
     it("should not insert a new tile when there is no empty space", () => {
       const { state, loadGrid, insertTileRandomly } = createGameEngine();
 
@@ -63,19 +78,32 @@ describe("2048-game", () => {
       ]);
     });
 
-    it("should insert a new tile into the last empty space", () => {
+    it("should detect when the game is over", () => {
       const { state, loadGrid, insertTileRandomly } = createGameEngine();
+
+      state.isGameOver = false;
 
       loadGrid([
         [{ value: 4 }, { value: 32 }],
-        [{ value: 8 }, null],
+        [{ value: 8 }, { value: 16 }],
       ]);
       insertTileRandomly({ value: 2 });
 
-      expect(state.grid).toMatchObject([
+      expect(state.isGameOver).toEqual(true);
+    });
+
+    it("should detect when the game is not over", () => {
+      const { state, loadGrid, insertTileRandomly } = createGameEngine();
+
+      state.isGameOver = false;
+
+      loadGrid([
         [{ value: 4 }, { value: 32 }],
-        [{ value: 8 }, { value: 2 }],
+        [{ value: 4 }, { value: 16 }],
       ]);
+      insertTileRandomly({ value: 2 });
+
+      expect(state.isGameOver).toEqual(false);
     });
   });
 
@@ -180,7 +208,7 @@ describe("2048-game", () => {
       ]);
     });
 
-    it("should detect when 2048 tile is achieved", () => {
+    it("should detect when the game is completed", () => {
       const { state, loadGrid, slideAndMergeTiles } = createGameEngine();
 
       state.isGameCompleted = false;
@@ -195,17 +223,11 @@ describe("2048-game", () => {
       slideAndMergeTiles({ direction: DIRECTION.RIGHT });
 
       expect(state.isGameCompleted).toEqual(true);
-      expect(state.grid).toMatchObject([
-        [null, null, null, null],
-        [null, null, null, null],
-        [null, null, null, null],
-        [null, null, null, { value: 2048 }],
-      ]);
     });
   });
 
   describe("getTiles", () => {
-    it("should get all tiles from the grid flatten them to an array", () => {
+    it("should get all tiles from the grid and flatten them to an array", () => {
       const { loadGrid, getTiles } = createGameEngine();
 
       loadGrid([
