@@ -51,7 +51,7 @@ import {
   DEFAULT_NUMBER_OF_OBSTACLES,
   GRID_OPTIONS,
   OBSTACLES_OPTIONS,
-} from "../constants";
+} from "@/constants";
 
 const gameEngine = inject("gameEngine");
 const { state } = gameEngine;

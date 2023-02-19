@@ -14,7 +14,7 @@
 </template>
 
 <script setup>
-import { TILE_SIZE } from "./../constants";
+import { TILE_SIZE } from "@/constants";
 
 defineProps({
   tile: {

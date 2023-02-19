@@ -1,5 +1,5 @@
 import { reactive, computed, toRaw } from "vue";
-import { DIRECTION } from "./../constants";
+import { DIRECTION } from "@/constants";
 
 export default function createGameEngine() {
   let state = reactive({

@@ -1,5 +1,5 @@
 import { onBeforeMount, onBeforeUnmount } from "vue";
-import { KEYBOARD_ARROW_CODE_TO_DIRECTION } from "./../constants";
+import { KEYBOARD_ARROW_CODE_TO_DIRECTION } from "@/constants";
 
 export default function trackKeyboardInput({ onArrowPressed }) {
   let isReadyForUserInput = true;

@@ -19,7 +19,7 @@
 
 <script setup>
 import { inject, computed } from "vue";
-import { TILE_SIZE, TILE_SPACING } from "./../constants";
+import { TILE_SIZE, TILE_SPACING } from "@/constants";
 import GameTile from "./GameTile.vue";
 import GameTileEmpty from "./GameTileEmpty.vue";
 import GameResultBanner from "./GameResultBanner.vue";

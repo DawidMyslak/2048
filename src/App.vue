@@ -3,5 +3,5 @@
 </template>
 
 <script setup>
-import GameCore from "./components/GameCore.vue";
+import GameCore from "@/components/GameCore.vue";
 </script>

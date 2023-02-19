@@ -10,7 +10,7 @@
 </template>
 
 <script setup>
-import { TILE_SIZE, TILE_SPACING } from "../constants";
+import { TILE_SIZE, TILE_SPACING } from "@/constants";
 </script>
 
 <style scoped>

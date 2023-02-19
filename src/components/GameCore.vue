@@ -11,9 +11,9 @@ import {
   DEFAULT_GRID_SIZE,
   DEFAULT_NUMBER_OF_OBSTACLES,
   KEYBOARD_ARROW_CODE_TO_DIRECTION,
-} from "../constants";
-import createGameEngine from "../lib/2048-game";
-import trackKeyboardInput from "../lib/keyboard-input";
+} from "@/constants";
+import createGameEngine from "@/lib/2048-game";
+import trackKeyboardInput from "@/lib/keyboard-input";
 import GameDashboard from "./GameDashboard.vue";
 import GameGrid from "./GameGrid.vue";
 

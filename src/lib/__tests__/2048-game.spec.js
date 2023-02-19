@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
-import { DIRECTION } from "./../../constants";
-import createGameEngine from "../2048-game";
+import { DIRECTION } from "@/constants";
+import createGameEngine from "@/lib/2048-game";
 
 describe("2048-game", () => {
   describe("initGame", () => {
