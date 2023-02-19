@@ -182,14 +182,11 @@ export default function createGameEngine() {
     ]) {
       // to check if the game is over we will simulate
       // all 4 possible moves (left, right, up and down)
-      // on the cloned state and compare the score
-      let clonedState = {
-        score: 0,
-        grid: structuredClone(toRaw(state.grid)),
-      };
+      // on the cloned state and compare the grid
+      let clonedState = structuredClone(toRaw(state));
 
-      slideAndMergeTiles(clonedState, { direction });
-      if (clonedState.score > 0) return;
+      const hasGridChanged = slideAndMergeTiles(clonedState, { direction });
+      if (hasGridChanged) return;
     }
 
     state.isGameOver = true;
