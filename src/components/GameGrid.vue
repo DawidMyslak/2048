@@ -12,6 +12,11 @@
         :key="index"
       />
       <GameTile v-for="tile in tiles" :tile="tile" :key="tile.id" />
+      <div class="result" v-if="state.isGameCompleted || state.isGameOver">
+        <span v-if="state.isGameCompleted">WOOHOO!</span>
+        <span v-else-if="state.isGameOver">GAME OVER!</span>
+        <span>{{ state.score }} POINTS</span>
+      </div>
     </div>
   </div>
 </template>
@@ -52,5 +57,24 @@ const tiles = computed(() => {
 
 .container {
   position: relative;
+}
+
+.result {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 40px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 24px;
+  font-weight: bold;
+  font-size: 32px;
+  color: #000;
+  border: 4px solid #bbb;
 }
 </style>

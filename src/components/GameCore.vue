@@ -21,6 +21,7 @@ const gameEngine = createGameEngine();
 provide("gameEngine", gameEngine);
 
 const {
+  state,
   initGame,
   insertNumberTileRandomly,
   insertObstacleTileRandomly,
@@ -48,6 +49,8 @@ startNewGame({
 
 trackKeyboardInput({
   onArrowPressed: ({ code }) => {
+    if (state.isGameCompleted || state.isGameOver) return;
+
     const hasGridChanged = slideAndMergeTiles({
       direction: KEYBOARD_ARROW_CODE_TO_DIRECTION[code],
     });
