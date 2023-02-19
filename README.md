@@ -1,24 +1,20 @@
 # 2048
 
-## Project Setup
+![2048 game](http://dawid.myslak.me/images/2048-game.png)
+
+## Play in your browser
+
+Use keyboard arrows to slide tiles left, right, up or down. Your goal is to merge as many tiles as possible and create a tile with 2048 value.
+
+## Run game locally
+
+**Note**: Please make sure to use Node.js in version 17 or higher.
 
 ```sh
-npm install
+npm install && npm run dev
 ```
 
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Run Unit Tests
+### Run unit tests
 
 ```sh
 npm run test:unit
