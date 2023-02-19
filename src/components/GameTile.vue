@@ -46,7 +46,8 @@ defineProps({
   color: #fff;
   font-weight: bold;
   text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.4);
-  animation: tile-animation 0.2s ease-in;
+  opacity: 0;
+  animation: tile-animation 0.2s ease-in 0.2s forwards;
 }
 
 .value-2 {
@@ -100,13 +101,16 @@ defineProps({
 
 @keyframes tile-animation {
   0% {
+    opacity: 1;
     transform: scale(0.5);
   }
   50% {
     transform: scale(1.1);
+    opacity: 1;
   }
   100% {
     transform: scale(1);
+    opacity: 1;
   }
 }
 </style>

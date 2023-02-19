@@ -25,6 +25,7 @@ const {
   insertNumberTileRandomly,
   insertObstacleTileRandomly,
   slideAndMergeTiles,
+  checkIfGameIsOver,
 } = gameEngine;
 
 let tileId;
@@ -47,8 +48,15 @@ startNewGame({
 
 trackKeyboardInput({
   onArrowPressed: ({ code }) => {
-    slideAndMergeTiles({ direction: KEYBOARD_ARROW_CODE_TO_DIRECTION[code] });
-    insertNumberTileRandomly({ id: ++tileId });
+    const hasGridChanged = slideAndMergeTiles({
+      direction: KEYBOARD_ARROW_CODE_TO_DIRECTION[code],
+    });
+    if (!hasGridChanged) return;
+
+    const isGridFull = insertNumberTileRandomly({ id: ++tileId });
+    if (!isGridFull) return;
+
+    checkIfGameIsOver();
   },
 });
 </script>

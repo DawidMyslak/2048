@@ -37,41 +37,21 @@ export default function createGameEngine() {
     return result;
   }
 
-  function checkIfGameIsOver() {
-    for (let direction of [
-      DIRECTION.LEFT,
-      DIRECTION.RIGHT,
-      DIRECTION.UP,
-      DIRECTION.DOWN,
-    ]) {
-      // to check if the game is over we will simulate
-      // all 4 possible moves (left, right, up and down)
-      // on the cloned state and compare the score
-      let clonedState = {
-        score: 0,
-        grid: structuredClone(toRaw(state.grid)),
-      };
-
-      slideAndMergeTiles(clonedState, { direction });
-      if (clonedState.score > 0) return false;
-    }
-
-    return true;
-  }
-
   function insertTileRandomly(tile) {
     const emptyPositions = findEmptyPositionsInGrid();
 
-    if (emptyPositions.length === 0) {
-      state.isGameOver = checkIfGameIsOver();
-      return;
+    if (emptyPositions.length > 0) {
+      // select random empty position
+      const { i, j } =
+        emptyPositions[Math.floor(Math.random() * emptyPositions.length)];
+
+      state.grid[i][j] = tile;
+
+      // return true if the last empty position was taken
+      return emptyPositions.length === 1;
     }
 
-    // select random empty position
-    const { i, j } =
-      emptyPositions[Math.floor(Math.random() * emptyPositions.length)];
-
-    state.grid[i][j] = tile;
+    return false;
   }
 
   function slideAndMergeTilesInRow(state, { rowIndex, direction }) {
@@ -108,6 +88,7 @@ export default function createGameEngine() {
     let emptyIndex = null;
     let numberIndex = null;
     let lastMergedNumberIndex = 0;
+    let hasRowChanged = false;
 
     // sliding and merging is done in a single for-loop
     // to achieve the best performance of the algorithm
@@ -132,6 +113,7 @@ export default function createGameEngine() {
           setTile(numberIndex, null);
           numberIndex = emptyIndex;
           emptyIndex++;
+          hasRowChanged = true;
         }
 
         if (
@@ -142,23 +124,35 @@ export default function createGameEngine() {
           const mergedTile = getTile(numberIndex);
           mergedTile.value *= 2;
 
-          // bump the score and check if 2048 tile was achieved
-          state.score += mergedTile.value;
-          if (mergedTile.value === 2048) state.isGameCompleted = true;
-
           setTile(numberIndex - 1, mergedTile);
           setTile(numberIndex, null);
           emptyIndex = numberIndex;
           lastMergedNumberIndex = numberIndex;
+          hasRowChanged = true;
+
+          // bump the score and check if 2048 tile was achieved
+          state.score += mergedTile.value;
+          if (mergedTile.value === 2048) state.isGameCompleted = true;
         }
       }
     }
+
+    return hasRowChanged;
   }
 
   function slideAndMergeTiles(state, { direction }) {
+    let hasGridChanged = false;
+
     for (let i = 0; i < state.grid.length; i++) {
-      slideAndMergeTilesInRow(state, { rowIndex: i, direction });
+      const hasRowChanged = slideAndMergeTilesInRow(state, {
+        rowIndex: i,
+        direction,
+      });
+
+      if (hasRowChanged) hasGridChanged = true;
     }
+
+    return hasGridChanged;
   }
 
   const getTiles = computed(() => {
@@ -179,20 +173,43 @@ export default function createGameEngine() {
     return result;
   });
 
+  function checkIfGameIsOver() {
+    for (let direction of [
+      DIRECTION.LEFT,
+      DIRECTION.RIGHT,
+      DIRECTION.UP,
+      DIRECTION.DOWN,
+    ]) {
+      // to check if the game is over we will simulate
+      // all 4 possible moves (left, right, up and down)
+      // on the cloned state and compare the score
+      let clonedState = {
+        score: 0,
+        grid: structuredClone(toRaw(state.grid)),
+      };
+
+      slideAndMergeTiles(clonedState, { direction });
+      if (clonedState.score > 0) return;
+    }
+
+    state.isGameOver = true;
+  }
+
   return {
     state,
     initGame,
     loadGrid,
     insertTileRandomly,
     insertNumberTileRandomly: (customProps) => {
-      insertTileRandomly({ ...customProps, type: "number", value: 2 });
+      return insertTileRandomly({ ...customProps, type: "number", value: 2 });
     },
     insertObstacleTileRandomly: (customProps) => {
-      insertTileRandomly({ ...customProps, type: "obstacle" });
+      return insertTileRandomly({ ...customProps, type: "obstacle" });
     },
     slideAndMergeTiles: ({ direction }) => {
-      slideAndMergeTiles(state, { direction });
+      return slideAndMergeTiles(state, { direction });
     },
     getTiles,
+    checkIfGameIsOver,
   };
 }
