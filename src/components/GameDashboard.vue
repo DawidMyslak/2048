@@ -136,6 +136,7 @@ const gameConfig = reactive({
 @media (max-width: 480px) {
   .game-dashboard {
     margin: 0 0 12px 0;
+    min-width: 376px;
   }
 
   .section-grid {
@@ -145,6 +146,7 @@ const gameConfig = reactive({
   .author {
     top: 24px;
     right: 24px;
+    bottom: auto;
   }
 }
 </style>
