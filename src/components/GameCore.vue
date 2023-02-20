@@ -7,13 +7,10 @@
 
 <script setup>
 import { provide } from "vue";
-import {
-  DEFAULT_GRID_SIZE,
-  DEFAULT_NUMBER_OF_OBSTACLES,
-  KEYBOARD_ARROW_CODE_TO_DIRECTION,
-} from "@/constants";
+import { DEFAULT_GRID_SIZE, DEFAULT_NUMBER_OF_OBSTACLES } from "@/constants";
 import createGameEngine from "@/lib/2048-game";
 import trackKeyboardInput from "@/lib/keyboard-input";
+import trackTouchGestures from "@/lib/touch-gestures";
 import GameDashboard from "./GameDashboard.vue";
 import GameGrid from "./GameGrid.vue";
 
@@ -42,25 +39,29 @@ function startNewGame({ gridSize, numberOfObstacles }) {
   }
 }
 
+function slideTiles({ direction }) {
+  if (state.isGameCompleted || state.isGameOver) return;
+
+  const hasGridChanged = slideAndMergeTiles({ direction });
+  if (!hasGridChanged) return;
+
+  const isGridFull = insertNumberTileRandomly({ id: ++tileId });
+  if (!isGridFull) return;
+
+  checkIfGameIsOver();
+}
+
 startNewGame({
   gridSize: DEFAULT_GRID_SIZE,
   numberOfObstacles: DEFAULT_NUMBER_OF_OBSTACLES,
 });
 
 trackKeyboardInput({
-  onArrowPressed: ({ code }) => {
-    if (state.isGameCompleted || state.isGameOver) return;
+  onArrowPressed: slideTiles,
+});
 
-    const hasGridChanged = slideAndMergeTiles({
-      direction: KEYBOARD_ARROW_CODE_TO_DIRECTION[code],
-    });
-    if (!hasGridChanged) return;
-
-    const isGridFull = insertNumberTileRandomly({ id: ++tileId });
-    if (!isGridFull) return;
-
-    checkIfGameIsOver();
-  },
+trackTouchGestures({
+  onSwipe: slideTiles,
 });
 </script>
 
@@ -68,5 +69,13 @@ trackKeyboardInput({
 .game-core {
   display: flex;
   user-select: none;
+}
+
+@media (max-width: 480px) {
+  .game-core {
+    flex-direction: column;
+    overflow: hidden;
+    position: fixed;
+  }
 }
 </style>

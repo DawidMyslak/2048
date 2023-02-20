@@ -4,7 +4,7 @@
       <span class="title">SCORE</span>
       <div class="score">{{ state.score }}</div>
     </div>
-    <div class="section">
+    <div class="section section-grid">
       <span class="title">GRID</span>
       <div class="selection">
         <button
@@ -67,7 +67,7 @@ const gameConfig = reactive({
   border-radius: 24px;
   background-color: #f1f1f1;
   padding: 24px;
-  margin-right: 12px;
+  margin: 0 12px 0 0;
   position: relative;
 }
 
@@ -131,5 +131,20 @@ const gameConfig = reactive({
   font-size: 13px;
   color: #444;
   bottom: 24px;
+}
+
+@media (max-width: 480px) {
+  .game-dashboard {
+    margin: 0 0 12px 0;
+  }
+
+  .section-grid {
+    display: none;
+  }
+
+  .author {
+    top: 24px;
+    right: 24px;
+  }
 }
 </style>

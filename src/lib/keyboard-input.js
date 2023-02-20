@@ -9,7 +9,7 @@ export default function trackKeyboardInput({ onArrowPressed }) {
 
     if (Object.keys(KEYBOARD_ARROW_CODE_TO_DIRECTION).includes(code)) {
       isReadyForUserInput = false;
-      onArrowPressed({ code });
+      onArrowPressed({ direction: KEYBOARD_ARROW_CODE_TO_DIRECTION[code] });
     }
   };
 
