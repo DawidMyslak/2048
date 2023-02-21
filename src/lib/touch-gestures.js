@@ -9,17 +9,11 @@ export default function trackTouchGestures({ onSwipe }) {
   function handleGesture() {
     if (touchEndX + SWIPE_THRESHOLD < touchStartX) {
       onSwipe({ direction: DIRECTION.LEFT });
-    }
-
-    if (touchEndX > SWIPE_THRESHOLD + touchStartX) {
+    } else if (touchEndX > SWIPE_THRESHOLD + touchStartX) {
       onSwipe({ direction: DIRECTION.RIGHT });
-    }
-
-    if (touchEndY + SWIPE_THRESHOLD < touchStartY) {
+    } else if (touchEndY + SWIPE_THRESHOLD < touchStartY) {
       onSwipe({ direction: DIRECTION.UP });
-    }
-
-    if (touchEndY > SWIPE_THRESHOLD + touchStartY) {
+    } else if (touchEndY > SWIPE_THRESHOLD + touchStartY) {
       onSwipe({ direction: DIRECTION.DOWN });
     }
   }
