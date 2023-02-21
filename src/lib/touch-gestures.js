@@ -1,7 +1,7 @@
 import { onBeforeMount, onBeforeUnmount } from "vue";
 import { DIRECTION } from "@/constants";
 
-const SWIPE_THRESHOLD = 50;
+const SWIPE_THRESHOLD = 40;
 
 export default function trackTouchGestures({ onSwipe }) {
   let touchEndX, touchEndY, touchStartX, touchStartY;
